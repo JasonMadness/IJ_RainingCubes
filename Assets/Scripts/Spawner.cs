@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour
@@ -5,6 +6,20 @@ public class Spawner : MonoBehaviour
     [SerializeField] private Despawner _despawner;
     [SerializeField] private CubePool _cubePool;
     [SerializeField] private float _positionBoundary = 20.0f;
+
+    private float _delay = 0.5f;
+    private bool _needToSpawn = true;
+
+    private void Start()
+    {
+        StartCoroutine(Work());
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.C))
+            _needToSpawn = false;
+    }
 
     private void Create()
     {
@@ -20,9 +35,14 @@ public class Spawner : MonoBehaviour
         return new Vector3(positionX, transform.position.y, positionZ);
     }
 
-    private void Update()
+    private IEnumerator Work()
     {
-        if (Input.GetKeyDown(KeyCode.C))
+        WaitForSeconds delay = new(_delay);
+        
+        while (_needToSpawn)
+        {
             Create();
+            yield return delay;
+        }
     }
 }

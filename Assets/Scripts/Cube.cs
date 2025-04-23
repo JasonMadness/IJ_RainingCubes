@@ -8,17 +8,18 @@ public class Cube : MonoBehaviour
     private Renderer _renderer;
     private Color _defaultColor;
     private bool _surfaceTouched;
-    
+
     public event Action<Cube> SurfaceTouched;
 
     private void Awake()
     {
-        _renderer.GetComponent<Renderer>();
+        _renderer = GetComponent<Renderer>();
+        _defaultColor = _renderer.material.color;
     }
 
     private void OnEnable()
     {
-        _surfaceTouched = false; 
+        _surfaceTouched = false;
         _renderer.material.color = _defaultColor;
     }
 
