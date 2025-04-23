@@ -25,11 +25,14 @@ public class Cube : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        if (_surfaceTouched == false)
+        if (other.gameObject.TryGetComponent(typeof(Platform), out _))
         {
-            SurfaceTouched?.Invoke(this);
-            _renderer.material.color = Random.ColorHSV();
-            _surfaceTouched = true;
+            if (_surfaceTouched == false)
+            {
+                SurfaceTouched?.Invoke(this);
+                _renderer.material.color = Random.ColorHSV();
+                _surfaceTouched = true;
+            }
         }
     }
 }
