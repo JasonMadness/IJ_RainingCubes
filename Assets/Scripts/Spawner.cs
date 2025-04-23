@@ -8,7 +8,7 @@ public class Spawner : MonoBehaviour
     [SerializeField] private float _positionBoundary = 20.0f;
 
     private float _delay = 0.5f;
-    private bool _needToSpawn = true;
+    private bool _isNeedToSpawn = true;
 
     private void Start()
     {
@@ -18,7 +18,7 @@ public class Spawner : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.C))
-            _needToSpawn = false;
+            _isNeedToSpawn = false;
     }
 
     private void Create()
@@ -39,7 +39,7 @@ public class Spawner : MonoBehaviour
     {
         WaitForSeconds delay = new(_delay);
         
-        while (_needToSpawn)
+        while (_isNeedToSpawn)
         {
             Create();
             yield return delay;
