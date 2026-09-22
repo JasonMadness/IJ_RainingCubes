@@ -1,48 +1,18 @@
-using System.Collections;
 using UnityEngine;
 
-public class Spawner : MonoBehaviour
+public abstract class Spawner<T> : MonoBehaviour where T : Component
 {
-    [SerializeField] private Despawner _despawner;
-    [SerializeField] private CubePool _cubePool;
-    [SerializeField] private float _positionBoundary = 20.0f;
+    [SerializeField] private Pool<T> _pool;
 
-    private float _delay = 0.5f;
-    private bool _isNeedToSpawn = true;
+    protected Pool<T> Pool => _pool;
 
-    private void Start()
+    protected T Spawn(Vector3 position)
     {
-        StartCoroutine(Work());
+        T item = _pool.Get();
+        item.transform.position = position;
+        OnSpawned(item);
+        return item;
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.C))
-            _isNeedToSpawn = false;
-    }
-
-    private void Create()
-    {
-        Cube cube = _cubePool.Get();
-        cube.transform.position = GetRandomPosition();
-        cube.SurfaceTouched += _despawner.OnSurfaceTouched;
-    }
-    
-    private Vector3 GetRandomPosition()
-    {
-        float positionX = Random.Range(-_positionBoundary, _positionBoundary);
-        float positionZ = Random.Range(-_positionBoundary, _positionBoundary);
-        return new Vector3(positionX, transform.position.y, positionZ);
-    }
-
-    private IEnumerator Work()
-    {
-        WaitForSeconds delay = new(_delay);
-        
-        while (_isNeedToSpawn)
-        {
-            Create();
-            yield return delay;
-        }
-    }
+    protected virtual void OnSpawned(T item) { }
 }
