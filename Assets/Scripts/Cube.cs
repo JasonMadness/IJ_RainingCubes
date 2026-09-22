@@ -25,7 +25,7 @@ public class Cube : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.TryGetComponent(typeof(Platform), out _))
+        if (other.gameObject.TryGetComponent<Platform>(out _))
         {
             if (_surfaceTouched == false)
             {
