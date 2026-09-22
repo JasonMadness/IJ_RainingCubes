@@ -285,7 +285,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a207afde20d067443979875466c00621, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cubePool: {fileID: 0}
+  _cubePool: {fileID: 952249987}
+  _bombSpawner: {fileID: 1200036847}
 --- !u!1 &652995558
 GameObject:
   m_ObjectHideFlags: 0
@@ -509,6 +510,7 @@ GameObject:
   m_Component:
   - component: {fileID: 952249986}
   - component: {fileID: 952249987}
+  - component: {fileID: 952249988}
   m_Layer: 0
   m_Name: Pools
   m_TagString: Untagged
@@ -544,6 +546,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _prefab: {fileID: 3617351175440226835, guid: 81acb9ceda040284ebddbac9d8dbc3ff, type: 3}
+--- !u!114 &952249988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 952249985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45443cd5d86d0ba4c8c32c27ff2a6022, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _prefab: {fileID: 790243091652305847, guid: 8c65526eece2ff64f9aba62ec60967de, type: 3}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -699,6 +714,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1200036845}
   - component: {fileID: 1200036846}
+  - component: {fileID: 1200036847}
   m_Layer: 0
   m_Name: Spawners
   m_TagString: Untagged
@@ -738,6 +754,19 @@ MonoBehaviour:
   _despawner: {fileID: 317042319}
   _delay: 0.5
   _positionBoundary: 20
+--- !u!114 &1200036847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1200036841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cf6da063a116d540a43192cc58b245b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pool: {fileID: 952249988}
 --- !u!1 &1251165057
 GameObject:
   m_ObjectHideFlags: 0
