@@ -5,11 +5,11 @@ public abstract class Spawner<T> : MonoBehaviour where T : Component
 {
     [SerializeField] private Pool<T> _pool;
 
-    public event Action Changed;
+    protected Pool<T> Pool => _pool;
 
     public int TotalSpawned { get; private set; }
 
-    protected Pool<T> Pool => _pool;
+    public event Action Changed;
 
     protected T Spawn(Vector3 position)
     {
