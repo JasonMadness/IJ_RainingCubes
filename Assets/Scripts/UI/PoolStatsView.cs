@@ -9,11 +9,15 @@ public abstract class PoolStatsView : MonoBehaviour
     [SerializeField] protected TMP_Text CreatedText;
     [SerializeField] protected TMP_Text ActiveText;
 
+    private void Awake()
+    {
+        PoolNameText.text = PoolName;
+    }
+
     private void OnEnable()
     {
         Subscribe();
         UpdateView();
-        PoolNameText.text = PoolName;
     }
 
     private void OnDisable()
