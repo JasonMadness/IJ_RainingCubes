@@ -1,18 +1,83 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
+[RequireComponent(typeof(Renderer))]
+[RequireComponent(typeof(Rigidbody))]
 public class Bomb : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private float _minLifetime = 2.0f;
+    [SerializeField] private float _maxLifetime = 5.0f;
+    [SerializeField] private float _explosionRadius = 5.0f;
+    [SerializeField] private float _explosionForce = 10.0f;
+
+    private Renderer _renderer;
+    private Rigidbody _rigidbody;
+    private Color _baseColor;
+    private Coroutine _fadeRoutine;
+
+    public event Action<Bomb> LifeEnded;
+
+    private void Awake()
     {
-        
+        _renderer = GetComponent<Renderer>();
+        _rigidbody = GetComponent<Rigidbody>();
+        _baseColor = _renderer.material.color;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnEnable()
     {
-        
+        SetAlpha(_baseColor.a);
+        _rigidbody.velocity = Vector3.zero;
+        _rigidbody.angularVelocity = Vector3.zero;
+        _fadeRoutine = StartCoroutine(FadeAndExplode());
+    }
+
+    private void OnDisable()
+    {
+        if (_fadeRoutine != null)
+        {
+            StopCoroutine(_fadeRoutine);
+            _fadeRoutine = null;
+        }
+    }
+
+    private IEnumerator FadeAndExplode()
+    {
+        float lifetime = Random.Range(_minLifetime, _maxLifetime);
+        float elapsed = 0f;
+        float startAlpha = _baseColor.a;
+
+        while (elapsed < lifetime)
+        {
+            elapsed += Time.deltaTime;
+            SetAlpha(Mathf.Lerp(startAlpha, 0f, elapsed / lifetime));
+            yield return null;
+        }
+
+        SetAlpha(0f);
+        Explode();
+        LifeEnded?.Invoke(this);
+    }
+
+    private void SetAlpha(float alpha)
+    {
+        Color color = _baseColor;
+        color.a = alpha;
+        _renderer.material.color = color;
+    }
+
+    private void Explode()
+    {
+        Collider[] hits = Physics.OverlapSphere(transform.position, _explosionRadius);
+
+        foreach (Collider hit in hits)
+        {
+            if (hit.TryGetComponent<Cube>(out _) || hit.TryGetComponent<Bomb>(out _))
+            {
+                hit.attachedRigidbody.AddExplosionForce(_explosionForce, transform.position, _explosionRadius);
+            }
+        }
     }
 }
