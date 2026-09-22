@@ -2,5 +2,16 @@ using UnityEngine;
 
 public class BombSpawner : Spawner<Bomb>
 {
-    public void SpawnAt(Vector3 position) => Spawn(position);
+    [SerializeField] private Despawner _despawner;
+
+    private void OnEnable()
+    {
+        _despawner.CubeDespawned += SpawnAt;
+    }
+    private void OnDisable()
+    {
+        _despawner.CubeDespawned -= SpawnAt;
+    }
+
+    private void SpawnAt(Vector3 position) => Spawn(position);
 }
