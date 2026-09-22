@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,7 +6,12 @@ public abstract class Pool<T> : MonoBehaviour where T : Component
 {
     [SerializeField] private T _prefab;
 
-    private Queue<T> _pool = new();
+    private readonly Queue<T> _pool = new();
+
+    public event Action Changed;
+
+    public int TotalCreated { get; private set; }
+    public int ActiveCount => TotalCreated - _pool.Count;
 
     public T Get()
     {
@@ -14,6 +20,7 @@ public abstract class Pool<T> : MonoBehaviour where T : Component
 
         T item = _pool.Dequeue();
         item.gameObject.SetActive(true);
+        Changed?.Invoke();
         return item;
     }
 
@@ -21,11 +28,13 @@ public abstract class Pool<T> : MonoBehaviour where T : Component
     {
         item.gameObject.SetActive(false);
         _pool.Enqueue(item);
+        Changed?.Invoke();
     }
 
     private void Create()
     {
         T newItem = Instantiate(_prefab, transform);
+        TotalCreated++;
         Return(newItem);
     }
 }
