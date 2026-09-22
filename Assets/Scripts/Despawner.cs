@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Despawner : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class Despawner : MonoBehaviour
 
     private IEnumerator ReturnAfterDelay(Cube cube)
     {
-        float delay = UnityEngine.Random.Range(_minDelay, _maxDelay);
+        float delay = Random.Range(_minDelay, _maxDelay);
         yield return new WaitForSeconds(delay);
 
         Vector3 position = cube.transform.position;
