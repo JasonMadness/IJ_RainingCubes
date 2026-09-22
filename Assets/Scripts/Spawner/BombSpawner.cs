@@ -13,5 +13,15 @@ public class BombSpawner : Spawner<Bomb>
         _despawner.CubeDespawned -= SpawnAt;
     }
 
-    private void SpawnAt(Vector3 position) => Spawn(position);
+    private void SpawnAt(Vector3 position)
+    {
+        Bomb bomb = Spawn(position);
+        bomb.LifeEnded += OnBombLifeEnded;
+    }
+
+    private void OnBombLifeEnded(Bomb bomb)
+    {
+        bomb.LifeEnded -= OnBombLifeEnded;
+        Pool.Return(bomb);
+    }
 }
