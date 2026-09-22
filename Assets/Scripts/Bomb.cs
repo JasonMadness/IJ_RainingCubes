@@ -76,7 +76,7 @@ public class Bomb : MonoBehaviour
         {
             if (hit.TryGetComponent<Cube>(out _) || hit.TryGetComponent<Bomb>(out _))
             {
-                hit.attachedRigidbody.AddExplosionForce(_explosionForce, transform.position, _explosionRadius);
+                hit.attachedRigidbody.AddExplosionForce(_explosionForce, transform.position, _explosionRadius, 0f, ForceMode.Impulse);
             }
         }
     }
