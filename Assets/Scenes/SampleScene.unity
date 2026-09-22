@@ -286,7 +286,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cubePool: {fileID: 952249987}
-  _bombSpawner: {fileID: 1200036847}
 --- !u!1 &652995558
 GameObject:
   m_ObjectHideFlags: 0
@@ -767,6 +766,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _pool: {fileID: 952249988}
+  _despawner: {fileID: 317042319}
 --- !u!1 &1251165057
 GameObject:
   m_ObjectHideFlags: 0
