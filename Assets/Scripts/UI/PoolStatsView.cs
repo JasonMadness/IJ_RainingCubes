@@ -13,6 +13,7 @@ public abstract class PoolStatsView : MonoBehaviour
     {
         Subscribe();
         UpdateView();
+        PoolNameText.text = PoolName;
     }
 
     private void OnDisable()
