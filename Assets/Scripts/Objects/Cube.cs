@@ -1,15 +1,19 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(Renderer))]
 public class Cube : MonoBehaviour, IExplodable
 {
+    [SerializeField] private float _minLifetime = 2.0f;
+    [SerializeField] private float _maxLifetime = 5.0f;
+
     private Renderer _renderer;
     private Color _defaultColor;
     private bool _surfaceTouched;
 
-    public event Action<Cube> SurfaceTouched;
+    public event Action<Cube> LifeEnded;
 
     private void Awake()
     {
@@ -25,14 +29,21 @@ public class Cube : MonoBehaviour, IExplodable
 
     private void OnCollisionEnter(Collision other)
     {
+        if (_surfaceTouched) 
+            return;
+
         if (other.gameObject.TryGetComponent<Platform>(out _))
         {
-            if (_surfaceTouched == false)
-            {
-                SurfaceTouched?.Invoke(this);
-                _renderer.material.color = Random.ColorHSV();
-                _surfaceTouched = true;
-            }
+            _surfaceTouched = true;
+            _renderer.material.color = Random.ColorHSV();
+            _lifetimeRoutine = StartCoroutine(WaitAndDie());
         }
+    }
+
+    private IEnumerator WaitAndDie()
+    {
+        float delay = Random.Range(_minLifetime, _maxLifetime);
+        yield return new WaitForSeconds(delay);
+        LifeEnded?.Invoke(this);
     }
 }
