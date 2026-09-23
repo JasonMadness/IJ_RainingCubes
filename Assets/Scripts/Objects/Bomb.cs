@@ -57,8 +57,8 @@ public class Bomb : MonoBehaviour
         }
 
         SetAlpha(0f);
-        Explode();
         LifeEnded?.Invoke(this);
+        Explosion.Apply(transform.position, _explosionRadius, _explosionForce);
     }
 
     private void SetAlpha(float alpha)
@@ -66,18 +66,5 @@ public class Bomb : MonoBehaviour
         Color color = _baseColor;
         color.a = alpha;
         _renderer.material.color = color;
-    }
-
-    private void Explode()
-    {
-        Collider[] hits = Physics.OverlapSphere(transform.position, _explosionRadius);
-
-        foreach (Collider hit in hits)
-        {
-            if (hit.TryGetComponent<Cube>(out _) || hit.TryGetComponent<Bomb>(out _))
-            {
-                hit.attachedRigidbody.AddExplosionForce(_explosionForce, transform.position, _explosionRadius, 0f, ForceMode.Impulse);
-            }
-        }
     }
 }
