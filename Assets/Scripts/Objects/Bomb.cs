@@ -5,7 +5,7 @@ using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(Renderer))]
 [RequireComponent(typeof(Rigidbody))]
-public class Bomb : MonoBehaviour
+public class Bomb : MonoBehaviour, IExplodable
 {
     [SerializeField] private float _minLifetime = 2.0f;
     [SerializeField] private float _maxLifetime = 5.0f;
