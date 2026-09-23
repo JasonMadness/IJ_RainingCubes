@@ -8,7 +8,7 @@ public static class Explosion
 
         foreach (Collider hit in hits)
         {
-            if (!hit.TryGetComponent<Cube>(out _) && !hit.TryGetComponent<Bomb>(out _))
+            if (hit.TryGetComponent<IExplodable>(out _) == false)
                 continue;
 
             hit.attachedRigidbody.AddExplosionForce(force, center, radius, 0f, ForceMode.Impulse);
