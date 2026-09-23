@@ -36,7 +36,7 @@ public class Cube : MonoBehaviour, IExplodable
         {
             _surfaceTouched = true;
             _renderer.material.color = Random.ColorHSV();
-            _lifetimeRoutine = StartCoroutine(WaitAndDie());
+            StartCoroutine(WaitAndDie());
         }
     }
 
