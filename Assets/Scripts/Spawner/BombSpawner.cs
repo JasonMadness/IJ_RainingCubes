@@ -22,6 +22,6 @@ public class BombSpawner : Spawner<Bomb>
     private void OnBombLifeEnded(Bomb bomb)
     {
         bomb.LifeEnded -= OnBombLifeEnded;
-        Pool.Return(bomb);
+        Pool.Release(bomb);
     }
 }
