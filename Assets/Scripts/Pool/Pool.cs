@@ -24,7 +24,7 @@ public abstract class Pool<T> : MonoBehaviour where T : Component
         return item;
     }
 
-    public void Return(T item)
+    public void Release(T item)
     {
         item.gameObject.SetActive(false);
         _pool.Enqueue(item);
@@ -35,6 +35,6 @@ public abstract class Pool<T> : MonoBehaviour where T : Component
     {
         T newItem = Instantiate(_prefab, transform);
         TotalCreated++;
-        Return(newItem);
+        Release(newItem);
     }
 }
