@@ -8,10 +8,10 @@ public abstract class Pool<T> : MonoBehaviour where T : Component
 
     private readonly Queue<T> _pool = new();
 
+    public event Action Changed;
+
     public int TotalCreated { get; private set; }
     public int ActiveCount => TotalCreated - _pool.Count;
-
-    public event Action Changed;
 
     public T Get()
     {
