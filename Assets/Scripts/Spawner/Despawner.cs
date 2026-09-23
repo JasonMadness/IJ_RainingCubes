@@ -15,16 +15,16 @@ public class Despawner : MonoBehaviour
     public void OnSurfaceTouched(Cube cube)
     {
         cube.SurfaceTouched -= OnSurfaceTouched;
-        StartCoroutine(ReturnAfterDelay(cube));
+        StartCoroutine(ReleaseAfterDelay(cube));
     }
 
-    private IEnumerator ReturnAfterDelay(Cube cube)
+    private IEnumerator ReleaseAfterDelay(Cube cube)
     {
         float delay = Random.Range(_minDelay, _maxDelay);
         yield return new WaitForSeconds(delay);
 
         Vector3 position = cube.transform.position;
-        _cubePool.Return(cube);
+        _cubePool.Release(cube);
         CubeDespawned?.Invoke(position);
     }
 }
