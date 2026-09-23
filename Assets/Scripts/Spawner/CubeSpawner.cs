@@ -25,7 +25,13 @@ public class CubeSpawner : Spawner<Cube>
 
     protected override void OnSpawned(Cube cube)
     {
-        cube.SurfaceTouched += _despawner.OnSurfaceTouched;
+        cube.SurfaceTouched += OnCubeTouched;
+    }
+
+    private void OnCubeTouched(Cube cube)
+    {
+        cube.SurfaceTouched -= OnCubeTouched;
+        _despawner.Despawn(cube);
     }
 
     private Vector3 GetRandomPosition()
