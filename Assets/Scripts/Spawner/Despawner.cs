@@ -10,11 +10,10 @@ public class Despawner : MonoBehaviour
     private float _minDelay = 2.0f;
     private float _maxDelay = 5.0f;
 
-    public event Action<Vector3> CubeDespawned;
+    public event Action<Vector3> Despawned;
 
-    public void OnSurfaceTouched(Cube cube)
+    public void Despawn(Cube cube)
     {
-        cube.SurfaceTouched -= OnSurfaceTouched;
         StartCoroutine(ReleaseAfterDelay(cube));
     }
 
@@ -25,6 +24,6 @@ public class Despawner : MonoBehaviour
 
         Vector3 position = cube.transform.position;
         _cubePool.Release(cube);
-        CubeDespawned?.Invoke(position);
+        Despawned?.Invoke(position);
     }
 }
