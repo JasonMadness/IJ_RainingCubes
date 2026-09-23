@@ -6,11 +6,11 @@ public class BombSpawner : Spawner<Bomb>
 
     private void OnEnable()
     {
-        _despawner.CubeDespawned += SpawnAt;
+        _despawner.Despawned += SpawnAt;
     }
     private void OnDisable()
     {
-        _despawner.CubeDespawned -= SpawnAt;
+        _despawner.Despawned -= SpawnAt;
     }
 
     private void SpawnAt(Vector3 position)
