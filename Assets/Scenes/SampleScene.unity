@@ -899,13 +899,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 921903ebea62c704ba4ef9e574a57668, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PoolName: "\u041A\u0443\u0431\u044B"
-  PoolNameText: {fileID: 1200168629}
-  SpawnedText: {fileID: 1111184467}
-  CreatedText: {fileID: 1624493802}
-  ActiveText: {fileID: 1062814663}
   _spawner: {fileID: 1200036846}
   _pool: {fileID: 952249987}
+  PoolName: "\u041A\u0443\u0431\u044B"
+  PoolNameText: {fileID: 1200168629}
+  _spawnedText: {fileID: 1111184467}
+  _createdText: {fileID: 1624493802}
+  _activeText: {fileID: 1062814663}
 --- !u!114 &851131119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1467,13 +1467,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 800b7871e40df264791dd5009de6d586, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PoolName: "\u0411\u043E\u043C\u0431\u044B"
-  PoolNameText: {fileID: 1972804075}
-  SpawnedText: {fileID: 1483917769}
-  CreatedText: {fileID: 1107041258}
-  ActiveText: {fileID: 826333670}
   _spawner: {fileID: 1200036847}
   _pool: {fileID: 952249988}
+  PoolName: "\u0411\u043E\u043C\u0431\u044B"
+  PoolNameText: {fileID: 1972804075}
+  _spawnedText: {fileID: 1483917769}
+  _createdText: {fileID: 1107041258}
+  _activeText: {fileID: 826333670}
 --- !u!114 &1110368585
 MonoBehaviour:
   m_ObjectHideFlags: 0
