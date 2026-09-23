@@ -1,13 +1,16 @@
 using TMPro;
 using UnityEngine;
 
-public abstract class PoolStatsView : MonoBehaviour
+public abstract class PoolStatsView<T> : MonoBehaviour where T : Component
 {
+    [SerializeField] private Spawner<T> _spawner;
+    [SerializeField] private Pool<T> _pool;
+
     [SerializeField] protected string PoolName;
     [SerializeField] protected TMP_Text PoolNameText;
-    [SerializeField] protected TMP_Text SpawnedText;
-    [SerializeField] protected TMP_Text CreatedText;
-    [SerializeField] protected TMP_Text ActiveText;
+    [SerializeField] private TMP_Text _spawnedText;
+    [SerializeField] private TMP_Text _createdText;
+    [SerializeField] private TMP_Text _activeText;
 
     private void Awake()
     {
@@ -16,25 +19,21 @@ public abstract class PoolStatsView : MonoBehaviour
 
     private void OnEnable()
     {
-        Subscribe();
+        _spawner.Changed += UpdateView;
+        _pool.Changed += UpdateView;
         UpdateView();
     }
 
     private void OnDisable()
     {
-        Unsubscribe();
+        _spawner.Changed -= UpdateView;
+        _pool.Changed -= UpdateView;
     }
-
-    protected abstract void Subscribe();
-    protected abstract void Unsubscribe();
-    protected abstract int GetTotalSpawned();
-    protected abstract int GetTotalCreated();
-    protected abstract int GetActiveCount();
 
     protected void UpdateView()
     {
-        SpawnedText.text = $"Заспавнено: {GetTotalSpawned()}";
-        CreatedText.text = $"Создано: {GetTotalCreated()}";
-        ActiveText.text = $"Активных: {GetActiveCount()}";
+        _spawnedText.text = $"Заспавнено: {_spawner.TotalSpawned}";
+        _createdText.text = $"Создано: {_pool.TotalCreated}";
+        _activeText.text = $"Активных: {_pool.ActiveCount}";
     }
 }
