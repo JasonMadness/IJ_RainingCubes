@@ -14,23 +14,23 @@ public class CubeSpawner : Spawner<Cube>
 
     private IEnumerator Work()
     {
-        WaitForSeconds delay = new(_delay);
+        var wait = new WaitForSeconds(_delay);
 
         while (enabled)
         {
             Spawn(GetRandomPosition());
-            yield return delay;
+            yield return wait;
         }
     }
 
     protected override void OnSpawned(Cube cube)
     {
-        cube.SurfaceTouched += OnCubeTouched;
+        cube.LifeEnded += OnCubeLifeEnded;
     }
 
-    private void OnCubeTouched(Cube cube)
+    private void OnCubeLifeEnded(Cube cube)
     {
-        cube.SurfaceTouched -= OnCubeTouched;
+        cube.LifeEnded -= OnCubeLifeEnded;
         _despawner.Despawn(cube);
     }
 
